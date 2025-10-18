@@ -15,8 +15,23 @@ class IssueListCreateView(generics.ListCreateAPIView):
     serializer_class = IssueSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    def get_queryset(self):
+        queryset = Issue.objects.all().order_by('-created_at')
+        status = self.request.query_params.get('status')
+        category = self.request.query_params.get('category')
+        user = self.request.query_params.get('user')
+
+        if status:
+            queryset = queryset.filter(status=status)
+        if category:
+            queryset = queryset.filter(category=category)
+        if user:
+            queryset = queryset.filter(reported_by__username=user)
+        return queryset
+
     def perform_create(self, serializer):
         serializer.save(reported_by=self.request.user)
+
 
 
 class IssueDetailView(generics.RetrieveUpdateDestroyAPIView):
