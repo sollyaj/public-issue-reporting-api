@@ -18,8 +18,12 @@ from django.contrib import admin
 from django.urls import path, include
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from django.http import JsonResponse
 
+def home(request):
+    return JsonResponse({"message":"Welcome"})
 urlpatterns = [
+    path('', home),
     path('admin/', admin.site.urls),
     path('api/', include('users.urls')),
     path('api/', include('issues.urls')),
