@@ -27,7 +27,11 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['public-issue-reporting-api.onrender.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = [
+    'public-issue-reporting-api.onrender.com', '127.0.0.1', 'localhost'
+    ]
+CSRF_TRUSTED_ORIGINS = ['https://public-issue-reporting-api.onrender.com']
+
 
 
 # Application definition
